@@ -1,0 +1,16 @@
+{
+  "tasks": [
+    {
+      "label": "build",
+      "command": "dotnet",
+      "type": "process",
+      "args": [
+        "build"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}/CookingRecipesSystem/Server/"
+      },
+      "problemMatcher": "$tsc"
+    }
+  ]
+}
