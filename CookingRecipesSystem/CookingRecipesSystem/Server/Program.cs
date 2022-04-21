@@ -1,6 +1,6 @@
+using CookingRecipesSystem.Server.Common;
 using CookingRecipesSystem.Server.Data;
 using CookingRecipesSystem.Server.Models;
-using CookingRecipesSystem.Shared.Common;
 
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
