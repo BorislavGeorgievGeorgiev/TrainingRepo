@@ -1,8 +1,37 @@
-using Microsoft.AspNetCore.ResponseCompression;
+using CookingRecipesSystem.Server.Infrastructure.Identity;
+using CookingRecipesSystem.Server.Infrastructure.Persistence.Migrations;
+
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+    options.UseSqlServer(connectionString));
+builder.Services.AddDatabaseDeveloperPageExceptionFilter();
+
+builder.Services.AddDefaultIdentity<ApplicationUser>()
+    .AddEntityFrameworkStores<ApplicationDbContext>();
+
+builder.Services.AddIdentityServer()
+    .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
+
+builder.Services.Configure<IdentityOptions>(options =>
+{
+  options.Password.RequireNonAlphanumeric = false;
+  options.Password.RequireDigit = false;
+  options.Password.RequireUppercase = false;
+  options.Password.RequireLowercase = false;
+  options.Password.RequireUppercase = false;
+  options.Password.RequiredUniqueChars = 0;
+  options.Password.RequiredLength = 3;
+});
+
+builder.Services.AddAuthentication()
+    .AddIdentityServerJwt();
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
@@ -12,6 +41,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
+  app.UseMigrationsEndPoint();
   app.UseWebAssemblyDebugging();
 }
 else
@@ -28,6 +58,9 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+app.UseIdentityServer();
+app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapRazorPages();
 app.MapControllers();
