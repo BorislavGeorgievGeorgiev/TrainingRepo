@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -36,10 +36,7 @@
   <ItemGroup>
     <Folder Include="Application\Common\Behaviours\" />
     <Folder Include="Application\Common\Exceptions\" />
-    <Folder Include="Application\Common\Interfaces\" />
     <Folder Include="Application\Common\Mappings\" />
-    <Folder Include="Application\Common\Models\" />
-    <Folder Include="Application\Common\Services\" />
     <Folder Include="Domain\Common\" />
     <Folder Include="Domain\Entities\" />
     <Folder Include="Domain\Exceptions\" />
@@ -47,7 +44,10 @@
     <Folder Include="Domain\ValueObjects\" />
     <Folder Include="Infrastructure\Services\" />
     <Folder Include="Infrastructure\Persistence\Configurations\" />
-    <Folder Include="Web\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\..\.editorconfig" Link=".editorconfig" />
   </ItemGroup>
 
 

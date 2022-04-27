@@ -3,11 +3,16 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32414.318
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CookingRecipesSystem.Server", "CookingRecipesSystem\Server\CookingRecipesSystem.Server.csproj", "{8C7C4688-D888-456B-9B8C-1B563A5B4957}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookingRecipesSystem.Server", "CookingRecipesSystem\Server\CookingRecipesSystem.Server.csproj", "{8C7C4688-D888-456B-9B8C-1B563A5B4957}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CookingRecipesSystem.Client", "CookingRecipesSystem\Client\CookingRecipesSystem.Client.csproj", "{AAA3890E-8123-4455-8F3D-7256045A92CD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookingRecipesSystem.Client", "CookingRecipesSystem\Client\CookingRecipesSystem.Client.csproj", "{AAA3890E-8123-4455-8F3D-7256045A92CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CookingRecipesSystem.Shared", "CookingRecipesSystem\Shared\CookingRecipesSystem.Shared.csproj", "{70838860-3B69-4F6C-8B76-89F788E56000}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CookingRecipesSystem.Shared", "CookingRecipesSystem\Shared\CookingRecipesSystem.Shared.csproj", "{70838860-3B69-4F6C-8B76-89F788E56000}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E4346A57-2B35-49C9-971F-94C595B91828}"
+	ProjectSection(SolutionItems) = preProject
+		.editorconfig = .editorconfig
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
