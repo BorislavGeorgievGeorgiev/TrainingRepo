@@ -1,37 +1,22 @@
-using CookingRecipesSystem.Server.Infrastructure.Identity;
-using CookingRecipesSystem.Server.Infrastructure.Persistence.Migrations;
-
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+using CookingRecipesSystem.Server.Application;
+using CookingRecipesSystem.Server.Application.Common.Interfaces;
+using CookingRecipesSystem.Server.Infrastructure;
+using CookingRecipesSystem.Server.Infrastructure.Services;
+using CookingRecipesSystem.Server.Web;
+using CookingRecipesSystem.Server.Web.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
+builder.Services.AddTransient<IDateTimeService, DateTimeService>();
+builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
+builder.Services.AddConventionalServices(typeof(WebServiceRegistration).Assembly);
+
+builder.Services.AddApplication();
+builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddWebComponents();
+
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
-builder.Services.AddDefaultIdentity<ApplicationUser>()
-    .AddEntityFrameworkStores<ApplicationDbContext>();
-
-builder.Services.AddIdentityServer()
-    .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
-
-builder.Services.Configure<IdentityOptions>(options =>
-{
-  options.Password.RequireNonAlphanumeric = false;
-  options.Password.RequireDigit = false;
-  options.Password.RequireUppercase = false;
-  options.Password.RequireLowercase = false;
-  options.Password.RequireUppercase = false;
-  options.Password.RequiredUniqueChars = 0;
-  options.Password.RequiredLength = 3;
-});
-
-builder.Services.AddAuthentication()
-    .AddIdentityServerJwt();
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
@@ -51,6 +36,7 @@ else
   app.UseHsts();
 }
 
+app.UseHealthChecks("/health");
 app.UseHttpsRedirection();
 
 app.UseBlazorFrameworkFiles();

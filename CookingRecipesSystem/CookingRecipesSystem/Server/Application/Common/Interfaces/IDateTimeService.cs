@@ -2,8 +2,8 @@
 
 namespace CookingRecipesSystem.Server.Application.Common.Interfaces
 {
-  public interface ICurrentUser : IScopedService
+  public interface IDateTimeService : ITransientService
   {
-    string UserId { get; }
+    DateTime Now { get; }
   }
 }

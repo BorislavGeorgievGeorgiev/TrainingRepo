@@ -13,16 +13,16 @@ using Microsoft.Extensions.Options;
 
 namespace CookingRecipesSystem.Server.Infrastructure.Persistence
 {
-  public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>
+  public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>, IApplicationData
   {
-    private readonly ICurrentUser currentUserService;
-    private readonly IDateTime dateTime;
+    private readonly ICurrentUserService currentUserService;
+    private readonly IDateTimeService dateTime;
 
     public ApplicationDbContext(
         DbContextOptions options,
         IOptions<OperationalStoreOptions> operationalStoreOptions,
-        ICurrentUser currentUserService,
-        IDateTime dateTime)
+        ICurrentUserService currentUserService,
+        IDateTimeService dateTime)
       : base(options, operationalStoreOptions)
     {
       this.currentUserService = currentUserService;
@@ -41,11 +41,11 @@ namespace CookingRecipesSystem.Server.Infrastructure.Persistence
         switch (entry.State)
         {
           case EntityState.Added:
-            entry.Entity.CreatedBy ??= this.currentUserService.UserId;
+            entry.Entity.CreatedBy ??= this.currentUserService.GetUserId;
             entry.Entity.CreatedOn = this.dateTime.Now;
             break;
           case EntityState.Modified:
-            entry.Entity.ModifiedBy = this.currentUserService.UserId;
+            entry.Entity.ModifiedBy = this.currentUserService.GetUserId;
             entry.Entity.ModifiedOn = this.dateTime.Now;
             break;
         }

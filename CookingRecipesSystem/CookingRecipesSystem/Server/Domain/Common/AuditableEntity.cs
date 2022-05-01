@@ -6,12 +6,12 @@ namespace CookingRecipesSystem.Server.Domain.Common
   {
     private const string InvalidEntityExceptionMessage = "User ID cannot be null !";
 
-    private string? createdBy;
-    private string? modifiedBy;
+    private string createdBy;
+    private string modifiedBy;
 
     public string CreatedBy
     {
-      get => this.createdBy!;
+      get => this.createdBy;
       set => this.createdBy = value ??
         throw new InvalidEntityException(InvalidEntityExceptionMessage);
     }
@@ -20,7 +20,7 @@ namespace CookingRecipesSystem.Server.Domain.Common
 
     public string ModifiedBy
     {
-      get => this.modifiedBy!;
+      get => this.modifiedBy;
       set => this.modifiedBy = value ??
         throw new InvalidEntityException(InvalidEntityExceptionMessage);
     }
