@@ -4,6 +4,8 @@ using CookingRecipesSystem.Server.Application.Common.Services;
 
 using MediatR;
 
+using Server.Application.Common.Behaviours;
+
 namespace CookingRecipesSystem.Server.Application
 {
   public static class ApplicationServiceRegistration
@@ -11,9 +13,9 @@ namespace CookingRecipesSystem.Server.Application
     public static IServiceCollection AddApplication(this IServiceCollection services)
         => services
             .AddAutoMapper(Assembly.GetExecutingAssembly())
-            .AddMediatR(Assembly.GetExecutingAssembly());
-    //.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestPerformanceBehaviour<,>))
-    //.AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
+            .AddMediatR(Assembly.GetExecutingAssembly())
+            .AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestPerformanceBehaviour<,>))
+            .AddTransient(typeof(IPipelineBehavior<,>), typeof(RequestValidationBehavior<,>));
 
     public static IServiceCollection AddConventionalServices(
         this IServiceCollection services,

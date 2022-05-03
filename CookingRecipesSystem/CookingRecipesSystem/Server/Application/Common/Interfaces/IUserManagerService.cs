@@ -3,7 +3,7 @@ using CookingRecipesSystem.Server.Application.Common.Services;
 
 namespace CookingRecipesSystem.Server.Application.Common.Interfaces
 {
-  public interface IApplicationIdentity : ITransientService
+  public interface IUserManagerService : ITransientService
   {
     Task<string> GetUserName(string userId);
 

@@ -5,5 +5,7 @@ namespace CookingRecipesSystem.Server.Application.Common.Interfaces
   public interface ICurrentUserService : IScopedService
   {
     string GetUserId { get; }
+
+    bool IsAuthenticated { get; }
   }
 }

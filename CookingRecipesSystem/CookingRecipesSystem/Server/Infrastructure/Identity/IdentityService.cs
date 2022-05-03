@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CookingRecipesSystem.Server.Infrastructure.Identity
 {
-  public class IdentityService : IApplicationIdentity
+  public class UserManagerService : IUserManagerService
   {
     private readonly UserManager<ApplicationUser> userManager;
 
-    public IdentityService(UserManager<ApplicationUser> userManager)
+    public UserManagerService(UserManager<ApplicationUser> userManager)
         => this.userManager = userManager;
 
     public async Task<string> GetUserName(string userId)

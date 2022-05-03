@@ -1,3 +1,5 @@
+using System.Reflection;
+
 using CookingRecipesSystem.Server.Application;
 using CookingRecipesSystem.Server.Application.Common.Interfaces;
 using CookingRecipesSystem.Server.Infrastructure;
@@ -10,7 +12,7 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddTransient<IDateTimeService, DateTimeService>();
 builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
-builder.Services.AddConventionalServices(typeof(WebServiceRegistration).Assembly);
+builder.Services.AddConventionalServices(Assembly.GetExecutingAssembly());
 
 builder.Services.AddApplication();
 builder.Services.AddInfrastructure(builder.Configuration);

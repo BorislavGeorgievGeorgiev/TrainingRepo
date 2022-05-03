@@ -6,12 +6,21 @@ namespace CookingRecipesSystem.Server.Web.Services
 {
   public class CurrentUserService : ICurrentUserService
   {
+    private readonly ClaimsPrincipal? currentUser;
+
     public CurrentUserService(IHttpContextAccessor httpContextAccessor)
-            => this.GetUserId = httpContextAccessor
-                .HttpContext?
-                .User?
-                .FindFirstValue(ClaimTypes.NameIdentifier);
+    {
+
+      this.GetUserId = httpContextAccessor
+        .HttpContext?
+        .User?
+        .FindFirstValue(ClaimTypes.NameIdentifier);
+
+      this.IsAuthenticated = this.GetUserId != null;
+    }
 
     public string GetUserId { get; }
+
+    public bool IsAuthenticated { get; }
   }
 }
