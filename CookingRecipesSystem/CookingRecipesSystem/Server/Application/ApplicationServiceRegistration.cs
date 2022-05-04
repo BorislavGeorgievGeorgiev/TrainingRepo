@@ -30,7 +30,7 @@ namespace CookingRecipesSystem.Server.Application
           .Where(t => t.IsClass && !t.IsAbstract)
           .Select(t => new
           {
-            Service = t.GetInterface($"I{t.Name.Replace("Service", string.Empty)}"),
+            Service = t.GetInterface($"I{t.Name}"),
             Implementation = t
           })
           .Where(t => t.Service != null);

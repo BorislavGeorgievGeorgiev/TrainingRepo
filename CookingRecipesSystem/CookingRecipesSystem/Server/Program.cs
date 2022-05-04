@@ -1,17 +1,12 @@
 using System.Reflection;
 
 using CookingRecipesSystem.Server.Application;
-using CookingRecipesSystem.Server.Application.Common.Interfaces;
 using CookingRecipesSystem.Server.Infrastructure;
-using CookingRecipesSystem.Server.Infrastructure.Services;
 using CookingRecipesSystem.Server.Web;
-using CookingRecipesSystem.Server.Web.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-builder.Services.AddTransient<IDateTimeService, DateTimeService>();
-builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
 builder.Services.AddConventionalServices(Assembly.GetExecutingAssembly());
 
 builder.Services.AddApplication();
