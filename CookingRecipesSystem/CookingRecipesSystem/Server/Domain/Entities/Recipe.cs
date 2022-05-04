@@ -3,20 +3,27 @@ using CookingRecipesSystem.Server.Domain.Exceptions;
 
 namespace CookingRecipesSystem.Server.Domain.Entities
 {
-  public class Recipe : AuditableEntity<Guid>
+  public class Recipe : AuditableEntity<int>, IRecipe
   {
     private const string InvalidRecipeExceptionMessageTitle = "Recipe title cannot be";
     private const string InvalidRecipeExceptionMessageContent = "Recipe content cannot be";
     private const int RecipeTitleMaxLength = 100;
 
-    private string title;
-    private string content;
+    private string? _title;
+    private string? _content;
+
+    public Recipe(string title, string content, string createdBy)
+    {
+      this.Title = title;
+      this.Content = content;
+      this.CreatedBy = createdBy;
+    }
 
     public string Title
     {
       get
       {
-        return this.title;
+        return this._title!;
       }
       set
       {
@@ -32,13 +39,16 @@ namespace CookingRecipesSystem.Server.Domain.Entities
             $"{InvalidRecipeExceptionMessageTitle} more than {RecipeTitleMaxLength} symbols.");
         }
 
-        this.title = value;
+        this._title = value;
       }
     }
 
     public string Content
     {
-      get { return this.content; }
+      get
+      {
+        return this._content!;
+      }
       set
       {
         if (string.IsNullOrEmpty(value))
@@ -46,7 +56,13 @@ namespace CookingRecipesSystem.Server.Domain.Entities
           throw new InvalidRecipeException(
             $"{InvalidRecipeExceptionMessageContent} null.");
         }
+
+        this._content = value;
       }
     }
+
+    public bool IsPublic { get; set; }
+
+    public DateTime? PublishedOn { get; set; }
   }
 }

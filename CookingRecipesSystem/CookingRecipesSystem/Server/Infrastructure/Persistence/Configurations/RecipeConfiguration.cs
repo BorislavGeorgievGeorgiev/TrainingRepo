@@ -1,4 +1,5 @@
-﻿using CookingRecipesSystem.Server.Domain.Entities;
+﻿using CookingRecipesSystem.Server.Application.Recipes;
+using CookingRecipesSystem.Server.Domain.Entities;
 using CookingRecipesSystem.Server.Infrastructure.Identity;
 
 using Microsoft.EntityFrameworkCore;
@@ -15,7 +16,8 @@ namespace CookingRecipesSystem.Server.Infrastructure.Persistence.Configurations
 
       builder
         .Property(r => r.Title)
-        .IsRequired();
+        .IsRequired()
+        .HasMaxLength(RecipesConstants.TitleMaxLength);
 
       builder
         .Property(r => r.Content)
