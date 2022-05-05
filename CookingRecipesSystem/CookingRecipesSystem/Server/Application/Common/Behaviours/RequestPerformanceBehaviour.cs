@@ -9,31 +9,31 @@ namespace Server.Application.Common.Behaviours
   public class RequestPerformanceBehaviour<TRequest, TResponse>
     : IPipelineBehavior<TRequest, TResponse> where TRequest : IRequest<TResponse>
   {
-    private readonly Stopwatch timer;
-    private readonly ILogger<TRequest> logger;
-    private readonly ICurrentUserService currentUserService;
-    private readonly IUserManagerService userManagerService;
+    private readonly Stopwatch _timer;
+    private readonly ILogger<TRequest> _logger;
+    private readonly ICurrentUserService _currentUserService;
+    private readonly IUserManagerService _userManagerService;
 
     public RequestPerformanceBehaviour(ILogger<TRequest> logger,
       ICurrentUserService currentUserService, IUserManagerService userManagerService)
     {
-      this.timer = new Stopwatch();
+      this._timer = new Stopwatch();
 
-      this.logger = logger;
-      this.currentUserService = currentUserService;
-      this.userManagerService = userManagerService;
+      this._logger = logger;
+      this._currentUserService = currentUserService;
+      this._userManagerService = userManagerService;
     }
 
     public async Task<TResponse> Handle(TRequest request,
       CancellationToken cancellationToken, RequestHandlerDelegate<TResponse> next)
     {
-      this.timer.Start();
+      this._timer.Start();
 
       var response = await next();
 
-      this.timer.Stop();
+      this._timer.Stop();
 
-      var elapsedMilliseconds = this.timer.ElapsedMilliseconds;
+      var elapsedMilliseconds = this._timer.ElapsedMilliseconds;
 
       if (elapsedMilliseconds <= 500)
       {
@@ -41,10 +41,10 @@ namespace Server.Application.Common.Behaviours
       }
 
       var requestName = typeof(TRequest).Name;
-      var userId = this.currentUserService.GetUserId;
-      var userName = await this.userManagerService.GetUserName(userId);
+      var userId = this._currentUserService.GetUserId;
+      var userName = await this._userManagerService.GetUserName(userId);
 
-      this.logger.LogWarning(
+      this._logger.LogWarning(
           "CookingRecipesSystem Long Running Request: {Name} ({ElapsedMilliseconds} milliseconds) {@UserId} {@Request}",
           requestName,
           elapsedMilliseconds,

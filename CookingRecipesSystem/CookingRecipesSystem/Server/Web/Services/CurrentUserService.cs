@@ -6,8 +6,6 @@ namespace CookingRecipesSystem.Server.Web.Services
 {
   public class CurrentUserService : ICurrentUserService
   {
-    private readonly ClaimsPrincipal? currentUser;
-
     public CurrentUserService(IHttpContextAccessor httpContextAccessor)
     {
 

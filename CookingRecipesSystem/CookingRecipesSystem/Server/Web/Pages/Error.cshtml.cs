@@ -9,11 +9,12 @@ namespace CookingRecipesSystem.Server.Web.Pages
   [IgnoreAntiforgeryToken]
   public class ErrorModel : PageModel
   {
+    private readonly ILogger<ErrorModel> _logger;
+
     public string? RequestId { get; set; }
 
     public bool ShowRequestId => !string.IsNullOrEmpty(this.RequestId);
 
-    private readonly ILogger<ErrorModel> _logger;
 
     public ErrorModel(ILogger<ErrorModel> logger)
     {

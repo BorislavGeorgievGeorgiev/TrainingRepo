@@ -9,13 +9,13 @@ namespace CookingRecipesSystem.Server.Infrastructure.Identity
 {
   public class UserManagerService : IUserManagerService
   {
-    private readonly UserManager<ApplicationUser> userManager;
+    private readonly UserManager<ApplicationUser> _userManager;
 
     public UserManagerService(UserManager<ApplicationUser> userManager)
-        => this.userManager = userManager;
+        => this._userManager = userManager;
 
     public async Task<string> GetUserName(string userId)
-        => await this.userManager
+        => await this._userManager
             .Users
             .Where(u => u.Id == userId)
             .Select(u => u.UserName)
@@ -29,14 +29,14 @@ namespace CookingRecipesSystem.Server.Infrastructure.Identity
         Email = userName,
       };
 
-      var result = await this.userManager.CreateAsync(ApplicationUser, password);
+      var result = await this._userManager.CreateAsync(ApplicationUser, password);
 
       return (result.ToApplicationResult(), ApplicationUser.Id);
     }
 
     public async Task<Result> DeleteUser(string userId)
     {
-      var ApplicationUser = this.userManager
+      var ApplicationUser = this._userManager
           .Users
           .SingleOrDefault(u => u.Id == userId);
 
@@ -50,7 +50,7 @@ namespace CookingRecipesSystem.Server.Infrastructure.Identity
 
     public async Task<Result> DeleteUser(ApplicationUser ApplicationUser)
     {
-      var result = await this.userManager.DeleteAsync(ApplicationUser);
+      var result = await this._userManager.DeleteAsync(ApplicationUser);
 
       return result.ToApplicationResult();
     }

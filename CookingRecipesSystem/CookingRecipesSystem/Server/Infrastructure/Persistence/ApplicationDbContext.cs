@@ -15,8 +15,8 @@ namespace CookingRecipesSystem.Server.Infrastructure.Persistence
 {
   public class ApplicationDbContext : ApiAuthorizationDbContext<ApplicationUser>, IApplicationData
   {
-    private readonly ICurrentUserService currentUserService;
-    private readonly IDateTimeService dateTime;
+    private readonly ICurrentUserService _currentUserService;
+    private readonly IDateTimeService _dateTime;
 
     public ApplicationDbContext(
         DbContextOptions options,
@@ -25,8 +25,8 @@ namespace CookingRecipesSystem.Server.Infrastructure.Persistence
         IDateTimeService dateTime)
       : base(options, operationalStoreOptions)
     {
-      this.currentUserService = currentUserService;
-      this.dateTime = dateTime;
+      this._currentUserService = currentUserService;
+      this._dateTime = dateTime;
     }
 
     public DbSet<Recipe> Recipes { get; set; }
@@ -41,12 +41,12 @@ namespace CookingRecipesSystem.Server.Infrastructure.Persistence
         switch (entry.State)
         {
           case EntityState.Added:
-            entry.Entity.CreatedBy ??= this.currentUserService.GetUserId;
-            entry.Entity.CreatedOn = this.dateTime.Now;
+            entry.Entity.CreatedBy ??= this._currentUserService.GetUserId;
+            entry.Entity.CreatedOn = this._dateTime.Now;
             break;
           case EntityState.Modified:
-            entry.Entity.ModifiedBy = this.currentUserService.GetUserId;
-            entry.Entity.ModifiedOn = this.dateTime.Now;
+            entry.Entity.ModifiedBy = this._currentUserService.GetUserId;
+            entry.Entity.ModifiedOn = this._dateTime.Now;
             break;
         }
       }

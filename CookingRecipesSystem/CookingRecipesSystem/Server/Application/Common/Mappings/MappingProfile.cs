@@ -6,8 +6,8 @@ namespace CookingRecipesSystem.Server.Application.Common.Mappings
 {
   public class MappingProfile : Profile
   {
-    private const string MappingMethodName = "Mapping";
-    private readonly Type iMapFromType = typeof(IMapFrom<>);
+    private const string _MappingMethodName = "Mapping";
+    private readonly Type _iMapFromType = typeof(IMapFrom<>);
 
     public MappingProfile()
             => this.ApplyMappingsFromAssembly(Assembly.GetExecutingAssembly());
@@ -18,15 +18,15 @@ namespace CookingRecipesSystem.Server.Application.Common.Mappings
           .Where(t => t
               .GetInterfaces()
               .Any(i => i.IsGenericType
-                  && i.GetGenericTypeDefinition() == this.iMapFromType))
+                  && i.GetGenericTypeDefinition() == this._iMapFromType))
           .ToList();
 
       foreach (var type in types)
       {
         var instance = Activator.CreateInstance(type);
 
-        var methodInfo = type.GetMethod(MappingMethodName)
-            ?? type.GetInterface(this.iMapFromType.Name)!.GetMethod(MappingMethodName);
+        var methodInfo = type.GetMethod(_MappingMethodName)
+            ?? type.GetInterface(this._iMapFromType.Name)!.GetMethod(_MappingMethodName);
 
         methodInfo?.Invoke(instance, new object[] { this });
       }
