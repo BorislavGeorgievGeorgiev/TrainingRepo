@@ -8,6 +8,6 @@ namespace CookingRecipesSystem.Server.Application.Common.Interfaces
   {
     DbSet<Recipe> Recipes { get; set; }
 
-    Task<int> SaveChanges(CancellationToken cancellationToken);
+    Task<int> SaveChangesAsynchron(CancellationToken cancellationToken);
   }
 }

@@ -31,7 +31,7 @@ namespace CookingRecipesSystem.Server.Infrastructure.Persistence
 
     public DbSet<Recipe> Recipes { get; set; }
 
-    public Task<int> SaveChanges(CancellationToken cancellationToken = new CancellationToken())
+    public Task<int> SaveChangesAsynchron(CancellationToken cancellationToken = new CancellationToken())
             => this.SaveChangesAsync(cancellationToken);
 
     public override Task<int> SaveChangesAsync(CancellationToken cancellationToken = new CancellationToken())

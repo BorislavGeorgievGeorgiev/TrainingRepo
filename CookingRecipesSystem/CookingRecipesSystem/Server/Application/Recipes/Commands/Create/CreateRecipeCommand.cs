@@ -27,13 +27,14 @@ namespace CookingRecipesSystem.Server.Application.Recipes.Commands.Create
 
       public async Task<int> Handle(CreateRecipeCommand request, CancellationToken cancellationToken)
       {
-        var recipe = new Recipe(request.Title,
+        var recipe = new Recipe(
+          request.Title,
           request.Content,
           this._currentUserService.GetUserId);
 
         this._applicationData.Recipes.Add(recipe);
 
-        await this._applicationData.SaveChanges(cancellationToken);
+        await this._applicationData.SaveChangesAsynchron(cancellationToken);
 
         return recipe.Id;
       }
