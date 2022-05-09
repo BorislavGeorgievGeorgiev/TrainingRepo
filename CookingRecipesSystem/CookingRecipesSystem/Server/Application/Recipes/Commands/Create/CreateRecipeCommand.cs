@@ -1,17 +1,13 @@
 ﻿using CookingRecipesSystem.Server.Application.Common.Interfaces;
+using CookingRecipesSystem.Server.Application.Recipes.Commands.Common;
 using CookingRecipesSystem.Server.Domain.Entities;
 
 using MediatR;
 
 namespace CookingRecipesSystem.Server.Application.Recipes.Commands.Create
 {
-  public class CreateRecipeCommand : IRequest<int>, IRecipe
+  public class CreateRecipeCommand : RecipeCommand, IRecipe, IRequest<int>
   {
-    public string Title { get; set; }
-
-    public string Content { get; set; }
-
-
     public class CreateRecipeCommandHandler : IRequestHandler<CreateRecipeCommand, int>
     {
       private readonly IApplicationData _applicationData;

@@ -6,8 +6,8 @@ namespace CookingRecipesSystem.Server.Domain.Common
   {
     private const string _InvalidEntityExceptionMessage = "User ID cannot be null !";
 
-    private string _createdBy;
-    private string _modifiedBy;
+    private string? _createdBy;
+    private string? _modifiedBy;
 
     public string CreatedBy
     {

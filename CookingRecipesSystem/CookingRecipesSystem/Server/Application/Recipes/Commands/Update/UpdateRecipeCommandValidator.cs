@@ -1,4 +1,7 @@
-﻿using FluentValidation;
+﻿
+using CookingRecipesSystem.Server.Application.Recipes.Commands.Common;
+
+using FluentValidation;
 
 namespace CookingRecipesSystem.Server.Application.Recipes.Commands.Update
 {
@@ -6,14 +9,10 @@ namespace CookingRecipesSystem.Server.Application.Recipes.Commands.Update
   {
     public UpdateRecipeCommandValidator()
     {
-      this.RuleFor(r => r.Title)
-        .NotEmpty()
-        .MinimumLength(RecipesConstants.TitleMinLength)
-        .MaximumLength(RecipesConstants.TitleMaxLength);
+      this.Include(new RecipeCommandValidator());
 
-      this.RuleFor(r => r.Content)
-        .NotEmpty()
-        .MinimumLength(RecipesConstants.ContentMinLength);
+      this.RuleFor(r => r.Id)
+        .NotEmpty();
     }
   }
 }

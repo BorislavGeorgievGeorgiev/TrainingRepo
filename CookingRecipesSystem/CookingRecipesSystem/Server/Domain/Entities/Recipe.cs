@@ -61,8 +61,5 @@ namespace CookingRecipesSystem.Server.Domain.Entities
       }
     }
 
-    public bool IsPublic { get; set; }
-
-    public DateTime? PublishedOn { get; set; }
   }
 }
