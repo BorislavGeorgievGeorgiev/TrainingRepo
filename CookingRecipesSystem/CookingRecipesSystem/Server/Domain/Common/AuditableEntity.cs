@@ -18,7 +18,7 @@ namespace CookingRecipesSystem.Server.Domain.Common
 
     public DateTime CreatedOn { get; set; }
 
-    public string ModifiedBy
+    public string? ModifiedBy
     {
       get => this._modifiedBy;
       set => this._modifiedBy = value ??

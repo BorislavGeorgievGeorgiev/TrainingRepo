@@ -1,4 +1,5 @@
-﻿using CookingRecipesSystem.Server.Infrastructure.Identity;
+﻿using CookingRecipesSystem.Server.Domain.Entities;
+using CookingRecipesSystem.Server.Infrastructure.Identity;
 
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -27,6 +28,18 @@ namespace CookingRecipesSystem.Server.Infrastructure.Persistence.Initialize
           {
             await userManager.CreateAsync(defaultUser, "Test1!");
           }
+
+          if (context.Recipes.Any())
+          {
+            return;
+          }
+
+          var userId = await context.Users.Select(u => u.Id).FirstAsync();
+
+          context.Recipes.Add(new Recipe("Test Recipe", "Test Recipe Content", userId)
+          {
+            CreatedOn = DateTime.Now.AddDays(-1),
+          });
 
           await context.SaveChangesAsync();
 
