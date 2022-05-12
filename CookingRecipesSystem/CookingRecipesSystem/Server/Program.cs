@@ -1,14 +1,11 @@
 using System.Reflection;
 
 using CookingRecipesSystem.Server.Application;
-using CookingRecipesSystem.Server.Application.Common.Interfaces;
 using CookingRecipesSystem.Server.Infrastructure;
 using CookingRecipesSystem.Server.Infrastructure.Persistence.Initialize;
 using CookingRecipesSystem.Server.Web;
 
-using FluentValidation.AspNetCore;
-
-using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Razor;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,17 +18,13 @@ builder.Services.AddWebComponents();
 
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services
-  .AddControllersWithViews()
-  .AddFluentValidation(options => options
-  .RegisterValidatorsFromAssemblyContaining<IApplicationData>())
-  .AddNewtonsoftJson();
-
+builder.Services.AddControllersWithViews();
 builder.Services.AddRazorPages();
 
-builder.Services.Configure<ApiBehaviorOptions>(options =>
+builder.Services.Configure<RazorViewEngineOptions>(o =>
 {
-  options.SuppressModelStateInvalidFilter = true;
+  o.AreaPageViewLocationFormats.Add("/Web/Areas/Identity/Pages/Shared/{0}" + RazorViewEngine.ViewExtension);
+  o.AreaPageViewLocationFormats.Add("/Web/Pages/{0}" + RazorViewEngine.ViewExtension);
 });
 
 var app = builder.Build();
@@ -57,6 +50,7 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.UseHealthChecks("/health");
+
 app.UseHttpsRedirection();
 
 app.UseBlazorFrameworkFiles();
