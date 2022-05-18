@@ -4,7 +4,7 @@ using FluentValidation;
 
 using MediatR;
 
-namespace Server.Application.Common.Behaviours
+namespace CookingRecipesSystem.Server.Application.Common.Behaviours
 {
   public class RequestValidationBehavior<TRequest, TResponse>
       : IPipelineBehavior<TRequest, TResponse>

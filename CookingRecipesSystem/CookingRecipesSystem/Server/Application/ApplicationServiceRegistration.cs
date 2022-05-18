@@ -1,10 +1,9 @@
 ﻿using System.Reflection;
 
+using CookingRecipesSystem.Server.Application.Common.Behaviours;
 using CookingRecipesSystem.Server.Application.Common.Services;
 
 using MediatR;
-
-using Server.Application.Common.Behaviours;
 
 namespace CookingRecipesSystem.Server.Application
 {

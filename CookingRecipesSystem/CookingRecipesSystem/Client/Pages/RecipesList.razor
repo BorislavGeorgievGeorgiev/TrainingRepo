@@ -1,0 +1,35 @@
+﻿@page "/recipeslist"
+@using CookingRecipesSystem.Shared.ViewModels
+@using Microsoft.AspNetCore.Components.WebAssembly.Authentication
+@inject HttpClient Http
+
+<PageTitle>Recipes list</PageTitle>
+
+<h3>Recipes list</h3>
+@if (recipesList != null)
+{
+  @foreach (var recipe in recipesList!.Recipes)
+  {
+    <div>
+      <h2>@recipe.Title</h2>
+      <div>@recipe.Content</div>
+      <div>@recipe.Author</div>
+    </div>
+  }
+}
+
+@code {
+  private RecipesListViewModel? recipesList;
+
+  protected override async Task OnInitializedAsync()
+  {
+    try
+    {
+      recipesList = await Http.GetFromJsonAsync<RecipesListViewModel>("api/Recipes");     
+    }
+    catch (AccessTokenNotAvailableException exception)
+    {
+      exception.Redirect();
+    }
+  }
+}

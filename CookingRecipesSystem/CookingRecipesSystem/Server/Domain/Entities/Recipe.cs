@@ -5,8 +5,8 @@ namespace CookingRecipesSystem.Server.Domain.Entities
 {
   public class Recipe : AuditableEntity<int>, IRecipe
   {
-    private const string _InvalidRecipeExceptionMessageTitle = "Recipe title cannot be";
-    private const string _InvalidRecipeExceptionMessageContent = "Recipe content cannot be";
+    private const string _RecipeTitleCannot = "Recipe title cannot be";
+    private const string _RecipeContentCannot = "Recipe content cannot be";
     private const int _RecipeTitleMaxLength = 100;
 
     private string? _title;
@@ -30,13 +30,13 @@ namespace CookingRecipesSystem.Server.Domain.Entities
         if (string.IsNullOrEmpty(value))
         {
           throw new InvalidRecipeException(
-            $"{_InvalidRecipeExceptionMessageTitle} null.");
+            $"{_RecipeTitleCannot} null.");
         }
 
         if (value.Length > _RecipeTitleMaxLength)
         {
           throw new InvalidRecipeException(
-            $"{_InvalidRecipeExceptionMessageTitle} more than {_RecipeTitleMaxLength} symbols.");
+            $"{_RecipeTitleCannot} more than {_RecipeTitleMaxLength} symbols.");
         }
 
         this._title = value;
@@ -54,7 +54,7 @@ namespace CookingRecipesSystem.Server.Domain.Entities
         if (string.IsNullOrEmpty(value))
         {
           throw new InvalidRecipeException(
-            $"{_InvalidRecipeExceptionMessageContent} null.");
+            $"{_RecipeContentCannot} null.");
         }
 
         this._content = value;

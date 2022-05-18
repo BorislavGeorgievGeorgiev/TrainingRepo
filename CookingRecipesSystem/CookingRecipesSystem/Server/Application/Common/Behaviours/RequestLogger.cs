@@ -1,9 +1,8 @@
-
 using CookingRecipesSystem.Server.Application.Common.Interfaces;
 
 using MediatR.Pipeline;
 
-namespace Server.Application.Common.Behaviours
+namespace CookingRecipesSystem.Server.Application.Common.Behaviours
 {
   public class RequestLogger<TRequest> : IRequestPreProcessor<TRequest>
     where TRequest : notnull

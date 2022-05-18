@@ -4,7 +4,7 @@ using CookingRecipesSystem.Server.Application.Common.Interfaces;
 
 using MediatR;
 
-namespace Server.Application.Common.Behaviours
+namespace CookingRecipesSystem.Server.Application.Common.Behaviours
 {
   public class RequestPerformanceBehaviour<TRequest, TResponse>
     : IPipelineBehavior<TRequest, TResponse> where TRequest : IRequest<TResponse>
