@@ -11,13 +11,13 @@ namespace CookingRecipesSystem.Server.Web.Services
 
       this.GetUserId = httpContextAccessor
         .HttpContext?
-        .User?
+        .User
         .FindFirstValue(ClaimTypes.NameIdentifier);
 
       this.IsAuthenticated = this.GetUserId != null;
     }
 
-    public string GetUserId { get; }
+    public string? GetUserId { get; }
 
     public bool IsAuthenticated { get; }
   }

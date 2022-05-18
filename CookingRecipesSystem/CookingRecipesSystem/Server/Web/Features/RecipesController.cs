@@ -14,7 +14,7 @@ namespace CookingRecipesSystem.Server.Web.Features
   {
     [AllowAnonymous]
     [HttpGet]
-    public async Task<ActionResult<RecipesListOutputModel>> RecipesList(
+    public async Task<ActionResult<RecipeOutputModel[]>> RecipesList(
            [FromRoute] RecipesListQuery query)
            => await this.Mediator.Send(query);
 

@@ -9,10 +9,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CookingRecipesSystem.Server.Application.Recipes.Queries.GetRecipes
 {
-  public class RecipesListQuery : IRequest<RecipesListOutputModel>
+  public class RecipesListQuery : IRequest<RecipeOutputModel[]>
   {
     public class RecipesListQueryHandler : IRequestHandler<
-      RecipesListQuery, RecipesListOutputModel>
+      RecipesListQuery, RecipeOutputModel[]>
     {
       private readonly IApplicationData _applicationData;
       private readonly IMapper _mapper;
@@ -26,7 +26,7 @@ namespace CookingRecipesSystem.Server.Application.Recipes.Queries.GetRecipes
         this._userManager = userManager;
       }
 
-      public async Task<RecipesListOutputModel> Handle(
+      public async Task<RecipeOutputModel[]> Handle(
         RecipesListQuery request, CancellationToken cancellationToken)
       {
         var recipesList = await this._applicationData
@@ -35,16 +35,16 @@ namespace CookingRecipesSystem.Server.Application.Recipes.Queries.GetRecipes
           .OrderBy(x => x.Id)
           .ToListAsync(cancellationToken);
 
-        var recipesListOutput = new RecipesListOutputModel();
+        var recipesListOutput = new List<RecipeOutputModel>();
 
         foreach (var recipe in recipesList)
         {
           var recipeOutput = this._mapper.Map<RecipeOutputModel>(recipe);
           recipeOutput.Author = await this._userManager.GetUserName(recipe.CreatedBy);
-          recipesListOutput.Recipes.Add(recipeOutput);
+          recipesListOutput.Add(recipeOutput);
         }
 
-        return recipesListOutput;
+        return recipesListOutput.ToArray();
       }
     }
   }

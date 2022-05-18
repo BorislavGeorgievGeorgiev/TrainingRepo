@@ -6,9 +6,13 @@
 <PageTitle>Recipes list</PageTitle>
 
 <h3>Recipes list</h3>
-@if (recipesList != null)
+@if (recipesList == null)
 {
-  @foreach (var recipe in recipesList!.Recipes)
+  <div>Loading...</div>
+}
+else 
+{
+  @foreach (var recipe in recipesList!)
   {
     <div>
       <h2>@recipe.Title</h2>
@@ -19,17 +23,21 @@
 }
 
 @code {
-  private RecipesListViewModel? recipesList;
+  private RecipeViewModel[]? recipesList;
 
   protected override async Task OnInitializedAsync()
   {
     try
     {
-      recipesList = await Http.GetFromJsonAsync<RecipesListViewModel>("api/Recipes");     
+      recipesList = await Http.GetFromJsonAsync<RecipeViewModel[]>("api/Recipes");     
     }
     catch (AccessTokenNotAvailableException exception)
     {
       exception.Redirect();
+    }
+    catch (Exception ex)
+    {
+      Console.WriteLine(ex.Message);
     }
   }
 }
