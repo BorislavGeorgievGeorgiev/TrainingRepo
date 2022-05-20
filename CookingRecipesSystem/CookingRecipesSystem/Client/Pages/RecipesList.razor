@@ -5,7 +5,8 @@
 
 <PageTitle>Recipes list</PageTitle>
 
-<h3>Recipes list</h3>
+<h1>Recipes list</h1>
+
 @if (recipesList == null)
 {
   <div>Loading...</div>
@@ -15,7 +16,7 @@ else
   @foreach (var recipe in recipesList!)
   {
     <div>
-      <h2>@recipe.Title</h2>
+      <h3>@recipe.Title</h3>
       <div>@recipe.Content</div>
       <div>@recipe.Author</div>
     </div>

@@ -6,7 +6,7 @@ namespace CookingRecipesSystem.Server.Application.Common.Mappings
 {
   public class MappingProfile : Profile
   {
-    private const string _MappingMethodName = "Mapping";
+    private const string _MappingMethodName = nameof(IMapFrom<int>.Mapping);
     private readonly Type _iMapFromType = typeof(IMapFrom<>);
 
     public MappingProfile()
